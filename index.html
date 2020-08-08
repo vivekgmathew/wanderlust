@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-git.js"></script>
+</head>
+<body>
+
+User Name : <input type="text" id="username"/>
+<br>
+Password  : <input type="password" id="password"/>
+<br>
+<button id="btn_login">LOGIN</button>
+<br>
+<span id="message"></span>
+<script>
+
+    $(document).ready(function () {
+
+        $("#btn_login").click(function() {
+            let name = $('#username').val();
+            let password = $('#password').val()
+            requestBody = {
+                "name": name,
+                "password": password
+            }
+            $.ajax({
+                contentType: 'application/json',
+                data: JSON.stringify(requestBody),
+                complete: function (json) {
+                    let response = json.responseText;
+                    if (response === "success") {
+                        console.log("Success!")
+                        $('#message').val("Logged In")
+                    } else {
+                        console.log("Failure!")
+                        $('#message').val("Error while logging in")
+                    }
+                },
+                processData: false,
+                type: 'POST',
+                url: 'http://localhost:3000/login'
+            });
+        });
+
+        $("#btn_register").click(function () {
+
+        })
+    });
+
+</script>
+</body>
+</html>
